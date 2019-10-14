@@ -160,6 +160,14 @@ export default class ActionButton extends Component {
       ]
     };
 
+    let width = this.props.width;
+    let height = this.props.height;
+
+    if (this.props.size && !height) {
+      width = this.props.size;
+      height = this.props.size;
+    }
+
     const wrapperStyle = {
       backgroundColor: this.anim.interpolate({
         inputRange: [0, 1],
@@ -168,15 +176,15 @@ export default class ActionButton extends Component {
           this.props.btnOutRange || this.props.buttonColor
         ]
       }),
-      width: this.props.size,
-      height: this.props.size,
-      borderRadius: this.props.size / 2
+      width: width,
+      height: height,
+      borderRadius: height / 2
     };
 
     const buttonStyle = {
-      width: this.props.size,
-      height: this.props.size,
-      borderRadius: this.props.size / 2,
+      width: width,
+      height: height,
+      borderRadius: height / 2,
       alignItems: "center",
       justifyContent: "center"
     };
@@ -185,11 +193,11 @@ export default class ActionButton extends Component {
     const parentStyle = isAndroid &&
       this.props.fixNativeFeedbackRadius
       ? {
-          right: this.props.offsetX,
-          zIndex: this.props.zIndex,
-          borderRadius: this.props.size / 2,
-          width: this.props.size
-        }
+        right: this.props.offsetX,
+        zIndex: this.props.zIndex,
+        borderRadius: height / 2,
+        width: width
+      }
       : { marginHorizontal: this.props.offsetX, zIndex: this.props.zIndex };
 
     return (
@@ -263,7 +271,7 @@ export default class ActionButton extends Component {
 
     let actionButtons = !Array.isArray(children) ? [children] : children;
 
-    actionButtons = actionButtons.filter( actionButton => (typeof actionButton == 'object') )
+    actionButtons = actionButtons.filter(actionButton => (typeof actionButton == 'object'))
 
     const actionStyle = {
       flex: 1,
@@ -335,7 +343,7 @@ export default class ActionButton extends Component {
 
     setTimeout(() => {
       if (this.mounted) {
-        this.setState({ active: false, resetToken: this.state.resetToken });  
+        this.setState({ active: false, resetToken: this.state.resetToken });
       }
     }, 250);
   }
@@ -400,9 +408,9 @@ ActionButton.defaultProps = {
   spacing: 20,
   outRangeScale: 1,
   autoInactive: true,
-  onPress: () => {},
-  onPressIn: () => {},
-  onPressOn: () => {},
+  onPress: () => { },
+  onPressIn: () => { },
+  onPressOn: () => { },
   backdrop: false,
   degrees: 45,
   position: "right",
